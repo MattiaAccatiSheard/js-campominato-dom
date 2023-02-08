@@ -1,0 +1,49 @@
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::before,
+::after{
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img,
+svg,
+picture,
+video{
+    max-width: 100%;
+}
+
+#grid{
+    width: 600px;
+    height: 600px;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#grid,
+.square{
+    border: 2px solid black;
+}
+
+.square{
+    width: calc(100%/10);
+    height: calc(100%/10);
+    cursor: crosshair;
+}
+
+.square.active{
+    background-color: rgb(100, 227, 49);
+}
