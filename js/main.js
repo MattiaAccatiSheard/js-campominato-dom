@@ -5,31 +5,40 @@
 
 // on load
 const btn = document.getElementById("btn");
+const gridDimension = 100;
+
 
 btn.addEventListener(
     "click",
     function () {
         const gridEl = document.getElementById("grid");
-        generatore(grid);
-        
-    }
-    
+        generatore(gridEl, gridDimension);        
+    }    
     )
 
 
 
 
-// costanti
-
-// const box = document.createElement("div");
-// box.classList.add("square");
-// box.append(i + 1);
-
 
 //FUNZIOINI//
-function generatore(grid) {
-    grid.InnerHTML = "";
-    for (let i = 0; i < 100; i++) {
+function generatore(grid, dimension) {
+    
+    const list = [];
+    for (let i = 0; i < dimension; i++) {
+        list.push(i + 1);
+    }
+    // console.log(list);
+    
+
+    // grid.InnerHTML = "";
+    for (let i = 0; i < dimension; i++) {
+
+        // prendo un i a caso dalla list 
+        // const randomLista = generateRandom (0, lista.lenght - 1);
+        const randomLista = generateRandom(0, list.lenght - 1);
+        const value = list[randomLista];
+        console.log(value);
+        // lo rimuovo e lo aggiungo all'html di un elemento square
 
         const squareEl = document.createElement("div");
         squareEl.classList.add("square");
@@ -47,4 +56,10 @@ function generatore(grid) {
         grid.append(squareEl);
 
     }
+}
+
+
+function generateRandom(min, max) {
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomNumber;
 }
