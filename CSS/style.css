@@ -47,3 +47,11 @@ video{
 .square.active{
     background-color: rgb(100, 227, 49);
 }
+
+.square.odd {
+    background-color: cornflowerblue;
+}
+
+.square.even{
+    background-color: blueviolet;
+}

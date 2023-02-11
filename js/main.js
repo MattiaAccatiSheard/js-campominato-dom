@@ -1,65 +1,97 @@
-// L'utente clicca su un bottone che genererà una griglia di gioco quadrata.
-// Ogni cella ha un numero progressivo, da 1 a 100.
-// Ci saranno quindi 10 caselle per ognuna delle 10 righe.
-// Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata.
+/*****************************************************
+ *                                                   *
+ *                     ON LOAD                       *
+ *                                                   *
+ *****************************************************/
+const startButton = document.getElementById("start")
 
-// on load
-const btn = document.getElementById("btn");
-const gridDimension = 100;
-
-
-btn.addEventListener(
+startButton.addEventListener(
     "click",
-    function () {
-        const gridEl = document.getElementById("grid");
-        generatore(gridEl, gridDimension);        
-    }    
-    )
+    startGame
+)
 
 
 
-
-
-//FUNZIOINI//
-function generatore(grid, dimension) {
+/*****************************************************
+ *                                                   *
+ *                    FUNCTIONS                      *
+ *                                                   *
+*****************************************************/
+function startGame() {
+    generateGrid(gridEl)
+    const gridEl = document.getElementById("grid");
+    // const gridDimension = 100;
     
-    const list = [];
+}
+
+function generateGrid(gridEl, dimension) {
+
+
+    // assegnare un valore casuale ad ogni cella
+    const whitelist= [];
     for (let i = 0; i < dimension; i++) {
-        list.push(i + 1);
+        whitelist.push(i + 1);        
     }
-    // console.log(list);
-    
 
-    // grid.InnerHTML = "";
+
+
+
+    // per 100 volte
     for (let i = 0; i < dimension; i++) {
 
-        // prendo un i a caso dalla list 
-        // const randomLista = generateRandom (0, lista.lenght - 1);
-        const randomLista = generateRandom(0, list.lenght - 1);
-        const value = list[randomLista];
-        console.log(value);
-        // lo rimuovo e lo aggiungo all'html di un elemento square
-
+        // prendo un i a caso della white list
+        const randomIndex = generateRandom(0, whitelist.length - 1);        
+        const squareText = whitelist[randomIndex]
+        
+        // lo rimuovo dalla whitelist
+        whitelist.splice(randomIndex, 1);
+        
+        // genero un div
         const squareEl = document.createElement("div");
+
+        // lo aggiungo all'html
+        squareEl.append(squareText);
+
+        // aggiungo la classe .square di css
         squareEl.classList.add("square");
-        squareEl.append(i + 1);
 
-
+        // aggiungo un add event listner sul click che rimuova o aggiunga o tolga la classe active al click della cella
         squareEl.addEventListener(
             "click",
             function () {
-                console.log(this);
-                this.classList.toggle("active");
-                console.log(squareEl);
+                //  this.classList.toggle("active");
+
+                const squareText = parseInt(this.innerHTML);
+
+                if (isEven(squareText)) {
+                    this.classList.toggle("even");
+                             
+                } else {
+                    this.classList.toggle("odd")
+                }
+
+                // TODO: controllare il valore della cella  assegnare una classe appropriata a seconda se il valore è pari o dispari
+
             }
-            )
-        grid.append(squareEl);
+        )
+
+        // lo aggiungo alla griglia
+        gridEl.appendChild(squareEl);
+
 
     }
+
 }
 
 
+// generatore numero casuale
 function generateRandom(min, max) {
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNumber;
+}
+
+
+// verifica se il numero è pari 
+function isEven(num) {
+    return num % 2 == 0;
 }
